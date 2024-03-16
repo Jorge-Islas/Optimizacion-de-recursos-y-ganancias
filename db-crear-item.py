@@ -16,6 +16,7 @@ item_type = input("Tipo de objeto: ")
 item_value = int(input("Valor de objeto: "))
 item_tier = int(input("Nivel: "))
 item_enchantment = int(input("Encantamiento: "))
+item_station = input("Estación crafting: ")
 item_planks = int(input("Tablas: "))
 item_metalbars = int(input("Lingotes: "))
 item_cloth = int(input("Tela: "))
@@ -28,6 +29,7 @@ new_item = {
     "valor": item_value,
     "nivel": item_tier,
     "encantamiento": item_enchantment,
+    "estacion": item_station,
     "tablas": item_planks,
     "lingotes": item_metalbars,
     "tela": item_cloth,
