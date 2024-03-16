@@ -23,4 +23,4 @@ def obtener_restriccion_dinero(
         (cuota_de_creacion_por_unidad, precios_de_compra_materiales)
     )
     
-    return restriccion_de_dinero
+    return restriccion_de_dinero, cuota_de_creacion_por_unidad, precios_de_compra_materiales
