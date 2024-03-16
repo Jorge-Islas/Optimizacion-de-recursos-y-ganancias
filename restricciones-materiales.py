@@ -52,8 +52,9 @@ def obtener_resticciones_de_materiales(item_list=None):
     df_as_matrix = np.transpose(np.array(df.iloc[:,:]))
     A_ub_0 = np.hstack((df_as_matrix, -np.identity(df.shape[1])))
 
-    print(A_ub_0)
-    print(A_ub_0.shape)
-    return A_ub_0
+    
+    return A_ub_0, list(df.index), list(df.columns)
 
-obtener_resticciones_de_materiales()
+mtx, idx, cols = obtener_resticciones_de_materiales()
+print(idx)
+print(cols)
