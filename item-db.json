@@ -337,8 +337,8 @@
         "tela": 0,
         "cuero": 0
     },
-    "T3_2h_BOW": {
-        "id": "T3_2h_BOW",
+    "T3_2H_BOW": {
+        "id": "T3_2H_BOW",
         "nombre": "Arco del obrero",
         "tipo": "Arco",
         "valor": 256,
@@ -428,8 +428,8 @@
         "tela": 0,
         "cuero": 8
     },
-    "T3_2h_QUARTERSTAFF": {
-        "id": "T3_2h_QUARTERSTAFF",
+    "T3_2H_QUARTERSTAFF": {
+        "id": "T3_2H_QUARTERSTAFF",
         "nombre": "Vara del obrero",
         "tipo": "Vara",
         "valor": 256,

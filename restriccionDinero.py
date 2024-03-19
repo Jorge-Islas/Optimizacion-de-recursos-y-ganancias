@@ -13,11 +13,11 @@ def obtener_restriccion_dinero(
     registro_de_items = registro_de_items.filter(items=lista_items_ordenados, axis=0)
     registro_de_items.loc[registro_de_items["nivel"] < 3, "valor"] = 0
 
-    valor_de_item = registro_de_items["valor"]
-    cuota_de_estacion = registro_de_items["estacion"].map(cuotas_de_estaciones)
+    valor_de_item = registro_de_items["valor"].sort_index(axis=0)
+    cuota_de_estacion = registro_de_items["estacion"].map(cuotas_de_estaciones).sort_index(axis=0)
     cuota_de_creacion_por_unidad = np.array(valor_de_item * 0.1125 * cuota_de_estacion * 0.01)
 
-    precios_de_compra_materiales = np.array(pd.Series(precios_de_compra_materiales).sort_index())
+    precios_de_compra_materiales = np.array(precios_de_compra_materiales)
     
     restriccion_de_dinero = np.hstack(
         (cuota_de_creacion_por_unidad, precios_de_compra_materiales)

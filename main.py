@@ -1,19 +1,28 @@
-import json
-import pandas as pd
 import numpy as np
 from scipy.optimize import linprog
 from cargarDatos import cargar_item_db
 from restriccionesMateriales import obtener_resticciones_de_materiales
 from restriccionDinero import obtener_restriccion_dinero
 from Restricciones import obtener_restricciones
-from llamadasAPI import obtener_precios_compra_materiales, obtener_precios_venta_items
+from llamadasAPI import obtener_precios
 from ganancias import obtener_funcion_ganancias, obtener_ventas
+
+
+import pandas as pd
 
 item_db = cargar_item_db()
 
 # Luego podrá cambiar esta lista con filtros y selecciones
 # de objetos
 lista_de_items = list(item_db.keys())
+
+# lista_de_items = [
+#     "T3_2H_TOOL_AXE",
+#     "T3_2H_TOOL_HAMMER",
+#     "T3_2H_TOOL_PICK",
+#     "T3_2H_TOOL_SICKLE",
+#     "T3_2H_TOOL_FISHINGROD"
+# ]
 
 # Despues importar la lista de materiales
 # de algún otro lado
@@ -26,17 +35,20 @@ materiales = {
 # El usuario llenará los campos de las cuotas de estaciones
 # dados los objetos que eligió
 cuotas_de_estaciones = {
-    "Forja del guerrero": 2400,
-    "Cabaña del cazador": 2390,
-    "Torre del mago": 2360,
-    "Fábrica de herramientas": 2390
+    "Forja del guerrero": 2370,
+    "Cabaña del cazador": 2360,
+    "Torre del mago": 2370,
+    "Fábrica de herramientas": 1150
 }
 
 # Presupuesto de dinero para la operación
-presupuesto = 100000
+presupuesto = 10000
 
 # Ciudad donde se harán las operaciones
 ciudad = "FortSterling"
+
+# Usar api para obtener datos
+usar_api = True
 
 # Obtener restricciones de materiales y listas ordenadas
 # de items y materiales
@@ -45,12 +57,11 @@ restricciones_de_materiales, lista_items_ordenados, lista_materiales_ordenados =
 print(f"Items considerados: {len(lista_items_ordenados)}")
 print(f"Materiales considerados: {len(lista_materiales_ordenados)}")
 
-precios_de_venta_items = obtener_precios_venta_items(
-    lista_items_ordenados, ciudad
+precios_de_venta_items, precios_de_compra_materiales = obtener_precios(
+    lista_items_ordenados, lista_materiales_ordenados, ciudad, usar_api
 )
-precios_de_compra_materiales = obtener_precios_compra_materiales(
-    lista_materiales_ordenados, ciudad
-)
+
+df = pd.DataFrame({"items_ordenados": lista_items_ordenados, "items_precios": precios_de_venta_items.index, "precios": list(precios_de_venta_items)})
 
 # Obtener restricción de dinero (costo no debe sobrepasar
 # el presupuesto)

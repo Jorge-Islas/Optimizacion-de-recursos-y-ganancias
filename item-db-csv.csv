@@ -25,14 +25,14 @@
 23,T3_HEAD_PLATE_SET1,Casco de soldado del obrero,Casco de placas,64,3,0,Forja del guerrero,0,8,0,0
 24,T3_ARMOR_PLATE_SET1,Armadura de soldado del obrero,Armadura de placas,128,3,0,Forja del guerrero,0,16,0,0
 25,T3_SHOES_PLATE_SET1,Botas de soldado del obrero,Botas de placas,64,3,0,Forja del guerrero,0,8,0,0
-26,T3_2h_BOW,Arco del obrero,Arco,256,3,0,Cabaña del cazador,32,0,0,0
+26,T3_2H_BOW,Arco del obrero,Arco,256,3,0,Cabaña del cazador,32,0,0,0
 27,T3_MAIN_SPEAR,Lanza del obrero,Lanza,192,3,0,Cabaña del cazador,16,8,0,0
 28,T3_MAIN_NATURESTAFF,Bastón natural del obrero,Bastón natural,192,3,0,Cabaña del cazador,16,0,8,0
 29,T3_OFF_TORCH,Antorcha del obrero,Antorcha,64,3,0,Cabaña del cazador,4,0,4,0
 30,T3_HEAD_LEATHER_SET1,Capucha de mercenario del obrero,Capucha de cuero,64,3,0,Cabaña del cazador,0,0,0,8
 31,T3_ARMOR_LEATHER_SET1,Chaqueta de mercenario del obrero,Chaqueta de cuero,128,3,0,Cabaña del cazador,0,0,0,16
 32,T3_SHOES_LEATHER_SET1,Zapatos de mercenario del obrero,Zapatos de cuero,64,3,0,Cabaña del cazador,0,0,0,8
-33,T3_2h_QUARTERSTAFF,Vara del obrero,Vara,256,3,0,Cabaña del cazador,0,12,0,20
+33,T3_2H_QUARTERSTAFF,Vara del obrero,Vara,256,3,0,Cabaña del cazador,0,12,0,20
 34,T3_MAIN_DAGGER,Daga del obrero,Daga,192,3,0,Cabaña del cazador,0,12,0,12
 35,T3_MAIN_FIRESTAFF,Bastón ígneo del obrero,Bastón ígneo,192,3,0,Torre del mago,16,8,0,0
 36,T3_MAIN_ARCANESTAFF,Bastón arcano del obrero,Bastón arcano,192,3,0,Torre del mago,16,8,0,0
