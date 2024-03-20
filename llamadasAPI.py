@@ -6,6 +6,27 @@ import numpy as np
 # API endpoint for Albion Online Data Project
 ALBION_DATA_URL = "https://west.albion-online-data.com/api/v2/stats/prices/"
 
+def cargar_archivos_csv():
+    # Cargar archivos csv
+    try:
+        precios_venta_items = pd.read_csv(
+            "precios-api-items.csv",
+            header=0,
+            index_col="item_id"
+        )["sell_price_min"]
+
+        precios_compra_materiales = pd.read_csv(
+            "precios-api-materiales.csv",
+            header=0,
+            index_col="item_id"
+        )["sell_price_min"]
+    
+    except Exception as e:
+        print(f"ERROR: {e}")
+        print("\nUsando API para descargar datos más recientes...")
+    
+    return precios_venta_items, precios_compra_materiales
+
 def dar_formato_url(
     lista_de_objetos, 
     ciudad, 
@@ -29,7 +50,7 @@ def procesar_datos_items(datos_api_items):
     datos_api_items = pd.DataFrame(datos_api_items)
     datos_api_items["item_id"] = datos_api_items["item_id"].str.upper()
 
-    datos_api_items = datos_api_items.set_index("item_id").sort_index(axis=0)["buy_price_max"].replace(0, np.nan)
+    datos_api_items = datos_api_items.set_index("item_id").sort_index(axis=0)["sell_price_min"].replace(0, np.nan)
 
     # Agrupar y obtener promedio sin contar ceros
     datos_api_items = datos_api_items.groupby("item_id").mean()
@@ -39,7 +60,11 @@ def procesar_datos_items(datos_api_items):
     for item in datos_faltantes:
         datos_api_items[item] = int(input(f"Precio de venta {item}: "))
     
-    return datos_api_items
+    precios_con_impuestos = (1 - 0.025 - 0.05) * datos_api_items
+    #                            orden   precio
+    #                          de venta  competitivo
+
+    return precios_con_impuestos
 
 def procesar_datos_materiales(datos_api_materiales):
     datos_api_materiales = pd.DataFrame(datos_api_materiales)
@@ -52,7 +77,32 @@ def procesar_datos_materiales(datos_api_materiales):
     for item in datos_faltantes:
         datos_api_materiales[item] = int(input(f"Precio de compra {item}: "))
 
-    return datos_api_materiales
+    precios_con_margen_error = (1 + 0.1) * datos_api_materiales
+    #                              precios
+    #                              inflados
+
+    return precios_con_margen_error
+
+def obtener_datos_api(
+    lista_items_ordenados,
+    lista_materiales_ordenados,
+    ciudad
+):
+    # Usar API
+    datos_api_items = obtener_respuesta_API(
+        lista_items_ordenados, ciudad
+    )
+    datos_api_materiales = obtener_respuesta_API(
+        lista_materiales_ordenados, ciudad, calidades=[0]
+    )
+
+    precios_venta_items = procesar_datos_items(datos_api_items)
+    precios_compra_materiales = procesar_datos_materiales(datos_api_materiales)
+
+    precios_venta_items.to_csv("precios-api-items.csv")
+    precios_compra_materiales.to_csv("precios-api-materiales.csv")
+
+    return precios_venta_items, precios_compra_materiales
 
 def obtener_precios(
     lista_items_ordenados: list,
@@ -60,38 +110,22 @@ def obtener_precios(
     ciudad: str,
     usar_api=True
 ) -> pd.Series:
-    datos_mercado_albion = None
+    
+    precios_venta_items = None
+    precios_compra_materiales = None
 
     if not usar_api:
-        # Cargar archivos json
-        try:
-            with open("datos-api-items.json", "r") as file:
-                datos_api_materiales = json.load(file)
-
-            with open("datos-api-materiales.json", "r") as file:
-                datos_api_materiales = json.load(file)
-
-        except Exception as e:
-            print(f"ERROR: {e}")
-            print("\nUsando API para descargar datos más recientes...")
+        precios_venta_items, precios_compra_materiales = cargar_archivos_csv()
     
-    if datos_mercado_albion is None:
-        # Usar API
-        datos_api_items = obtener_respuesta_API(
-            lista_items_ordenados, ciudad
+    if precios_venta_items is None or precios_compra_materiales is None:
+        precios_venta_items, precios_compra_materiales = obtener_datos_api(
+            lista_items_ordenados,
+            lista_materiales_ordenados,
+            ciudad
         )
-        datos_api_materiales = obtener_respuesta_API(
-            lista_materiales_ordenados, ciudad, calidades=[0]
-        )
-        # Guardar datos en archivos json
-        with open("datos-api-items.json", "w") as file:
-            json.dump(datos_api_items, file)
 
-        with open("datos-api-materiales.json", "w") as file:
-            json.dump(datos_api_materiales, file)
+    precios_venta_items = precios_venta_items.loc[lista_items_ordenados]
+    
+    precios_compra_materiales = precios_compra_materiales.loc[lista_materiales_ordenados]
 
-    precios_venta_items = procesar_datos_items(datos_api_items)
-    precios_compra_materiales = procesar_datos_materiales(datos_api_materiales)
-
-    # Return provisional
     return precios_venta_items, precios_compra_materiales

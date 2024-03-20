@@ -5,7 +5,8 @@ from restriccionesMateriales import obtener_resticciones_de_materiales
 from restriccionDinero import obtener_restriccion_dinero
 from Restricciones import obtener_restricciones
 from llamadasAPI import obtener_precios
-from ganancias import obtener_funcion_ganancias, obtener_ventas
+from ganancias import obtener_funcion_ganancias
+from imprimirResultados import imprimir_resultados
 
 
 import pandas as pd
@@ -14,15 +15,9 @@ item_db = cargar_item_db()
 
 # Luego podrá cambiar esta lista con filtros y selecciones
 # de objetos
-lista_de_items = list(item_db.keys())
-
-# lista_de_items = [
-#     "T3_2H_TOOL_AXE",
-#     "T3_2H_TOOL_HAMMER",
-#     "T3_2H_TOOL_PICK",
-#     "T3_2H_TOOL_SICKLE",
-#     "T3_2H_TOOL_FISHINGROD"
-# ]
+registro_de_items = pd.DataFrame(list(item_db.values())).set_index("id").sort_index(axis=0)
+# lista_de_items = registro_de_items[registro_de_items["nivel"] == 4].index
+lista_de_items = registro_de_items.index
 
 # Despues importar la lista de materiales
 # de algún otro lado
@@ -42,13 +37,13 @@ cuotas_de_estaciones = {
 }
 
 # Presupuesto de dinero para la operación
-presupuesto = 10000
+presupuesto = 100000
 
 # Ciudad donde se harán las operaciones
 ciudad = "FortSterling"
 
 # Usar api para obtener datos
-usar_api = True
+usar_api = False
 
 # Obtener restricciones de materiales y listas ordenadas
 # de items y materiales
@@ -61,7 +56,7 @@ precios_de_venta_items, precios_de_compra_materiales = obtener_precios(
     lista_items_ordenados, lista_materiales_ordenados, ciudad, usar_api
 )
 
-df = pd.DataFrame({"items_ordenados": lista_items_ordenados, "items_precios": precios_de_venta_items.index, "precios": list(precios_de_venta_items)})
+print(precios_de_venta_items)
 
 # Obtener restricción de dinero (costo no debe sobrepasar
 # el presupuesto)
@@ -87,20 +82,12 @@ b_ub = vector_restricciones
 
 resultado = linprog(c, A_ub, b_ub, integrality=1, bounds=(0,None))
 
-print("\nCantidades óptimas:")
-for indice in np.where(resultado.x > 0.9)[0]:
-    id_objeto = (lista_items_ordenados + lista_materiales_ordenados)[indice]
-    cantidad_item = resultado.x[indice]
-    print(f"  {id_objeto}: {cantidad_item}")
-
-print(f"\nPresupuesto inicial: {presupuesto}")
-cantidad_items = resultado.x[:len(lista_items_ordenados)]
-cantidad_materiales = resultado.x[len(lista_items_ordenados):]
-ventas = obtener_ventas(precios_de_venta_items) @ cantidad_items
-cuotas_creacion = cuota_de_creacion_por_unidad @ cantidad_items
-compra_materiales = precios_de_compra_materiales @ cantidad_materiales
-print(f"Inversión: {cuotas_creacion + compra_materiales}")
-print(f"  Cuotas creación: {cuotas_creacion}")
-print(f"  Compra materiales: {compra_materiales}")
-print(f"Ventas: {ventas}")
-print(f"Ganancia total: {-resultado.fun}")
+imprimir_resultados(
+    resultado,
+    lista_items_ordenados,
+    lista_materiales_ordenados,
+    presupuesto,
+    precios_de_venta_items,
+    cuota_de_creacion_por_unidad,
+    precios_de_compra_materiales
+)
