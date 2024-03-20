@@ -24,11 +24,22 @@ def imprimir_resultados(
     print(f"  {"-":-<25}-|-{"-":-<30}-|-{"-":-<8}-|-{"-":-<6}")
     for indice in np.where(resultado.x > 0.9)[0]:
         id_objeto = (lista_items_ordenados + lista_materiales_ordenados)[indice]
-        cantidad_item = resultado.x[indice]
-        precio_item = ventas[id_objeto] if indice < len(ventas) else precios_de_compra_materiales[indice - len(ventas)]
-        nombre_item = item_db[id_objeto]["nombre"] if indice < len(ventas) else "-"
 
-        print(f"  {id_objeto: <25} | {nombre_item: <30} | {cantidad_item: <8,.0f} | {precio_item/0.845: <6,.0f}")
+        cantidad_item = resultado.x[indice]
+
+        if indice < len(ventas):
+            # Item
+            precio_objeto = ventas[id_objeto]/0.895
+            nombre_objeto = item_db[id_objeto]["nombre"]
+            condicion_precio = "min"
+
+        else:
+            # Material
+            precio_objeto = precios_de_compra_materiales[indice - len(ventas)]
+            nombre_objeto = "-"
+            condicion_precio = "max"
+
+        print(f"  {id_objeto: <25} | {nombre_objeto: <30} | {cantidad_item: <8,.0f} | {condicion_precio} {precio_objeto: <6,.0f}")
 
     print(f"\nPresupuesto inicial: {presupuesto:,}")
     print(f"Inversión: {cuotas_creacion + compra_materiales:,.0f}")

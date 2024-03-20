@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 def obtener_ventas(precios_de_venta_items):
-    coeficientes_de_venta = 0.92 * precios_de_venta_items
+    coeficientes_de_venta = 0.895 * precios_de_venta_items
     return coeficientes_de_venta
 
 def obtener_funcion_ganancias(

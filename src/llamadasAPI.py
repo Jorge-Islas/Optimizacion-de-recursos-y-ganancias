@@ -59,11 +59,11 @@ def procesar_datos_items(datos_api_items):
     for item in datos_faltantes:
         datos_api_items[item] = int(input(f"Precio de venta {item}: "))
     
-    precios_con_impuestos = (1 - 0.025 - 0.05) * datos_api_items
-    #                            orden   precio
-    #                          de venta  competitivo
+    precios_competitivos = (1 - 0.05) * datos_api_items
+    #                          precio
+    #                        competitivo
 
-    return precios_con_impuestos
+    return precios_competitivos
 
 def procesar_datos_materiales(datos_api_materiales):
     datos_api_materiales = pd.DataFrame(datos_api_materiales)
