@@ -6,7 +6,7 @@ from src.restricciones.Restricciones import obtener_restricciones
 from src.llamadasAPI import obtener_precios
 from src.ganancias import obtener_funcion_ganancias
 from src.imprimirResultados import imprimir_resultados
-
+from src.filtrarItems import filtrar_items
 
 import pandas as pd
 
@@ -15,6 +15,9 @@ item_db = cargar_item_db()
 # Luego podrá cambiar esta lista con filtros y selecciones
 # de objetos
 registro_de_items = pd.DataFrame(list(item_db.values())).set_index("id").sort_index(axis=0)
+
+registro_de_items = filtrar_items(registro_de_items)
+
 # lista_de_items = registro_de_items[registro_de_items["nivel"] == 4].index
 lista_de_items = registro_de_items.index
 
