@@ -55,8 +55,6 @@ precios_de_venta_items, precios_de_compra_materiales = obtener_precios(
     lista_items_ordenados, lista_materiales_ordenados, ciudad, usar_api
 )
 
-print(precios_de_venta_items)
-
 # Obtener restricción de dinero (costo no debe sobrepasar
 # el presupuesto)
 restriccion_de_dinero, cuota_de_creacion_por_unidad, precios_de_compra_materiales = obtener_restriccion_dinero(lista_items_ordenados, cuotas_de_estaciones, precios_de_compra_materiales)
@@ -88,5 +86,6 @@ imprimir_resultados(
     presupuesto,
     precios_de_venta_items,
     cuota_de_creacion_por_unidad,
-    precios_de_compra_materiales
+    precios_de_compra_materiales,
+    item_db
 )
