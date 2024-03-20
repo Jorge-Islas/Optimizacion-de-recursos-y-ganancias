@@ -32,20 +32,20 @@ materiales = {
 # El usuario llenará los campos de las cuotas de estaciones
 # dados los objetos que eligió
 cuotas_de_estaciones = {
-    "Forja del guerrero": 2370,
-    "Cabaña del cazador": 2360,
-    "Torre del mago": 2370,
-    "Fábrica de herramientas": 1150
+    "Forja del guerrero": int(input("Cuota FORJA DEL GUERRERO: ")),
+    "Cabaña del cazador": int(input("Cuota CABAÑA DEL CAZADOR: ")),
+    "Torre del mago": int(input("Cuota TORRE DEL MAGO: ")),
+    "Fábrica de herramientas": int(input("Cuota FÁBRICA DE HERRAMIENTAS: "))
 }
 
 # Presupuesto de dinero para la operación
-presupuesto = 100000
+presupuesto = int(input("Presupuesto: "))
 
 # Ciudad donde se harán las operaciones
-ciudad = "FortSterling"
+ciudad = input("Ciudad: ")
 
 # Usar api para obtener datos
-usar_api = False
+usar_api = True if input("Actualizar precios (sí : 'y', no: otra tecla): ") == "y" else False
 
 # Obtener restricciones de materiales y listas ordenadas
 # de items y materiales
