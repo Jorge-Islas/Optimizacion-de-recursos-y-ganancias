@@ -1,5 +1,5 @@
 import numpy as np
-from ganancias import obtener_ventas
+from src.ganancias import obtener_ventas
 
 def imprimir_resultados(
     resultado,

@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from cargarDatos import cargar_item_db
+from src.cargarDatos import cargar_item_db
 
 def id_material_con_encantamiento(id_material, nivel, encantamiento):
     if encantamiento == 0:

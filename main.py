@@ -1,12 +1,11 @@
-import numpy as np
 from scipy.optimize import linprog
-from cargarDatos import cargar_item_db
-from restriccionesMateriales import obtener_resticciones_de_materiales
-from restriccionDinero import obtener_restriccion_dinero
-from Restricciones import obtener_restricciones
-from llamadasAPI import obtener_precios
-from ganancias import obtener_funcion_ganancias
-from imprimirResultados import imprimir_resultados
+from src.cargarDatos import cargar_item_db
+from src.restricciones.restriccionesMateriales import obtener_resticciones_de_materiales
+from src.restricciones.restriccionDinero import obtener_restriccion_dinero
+from src.restricciones.Restricciones import obtener_restricciones
+from src.llamadasAPI import obtener_precios
+from src.ganancias import obtener_funcion_ganancias
+from src.imprimirResultados import imprimir_resultados
 
 
 import pandas as pd

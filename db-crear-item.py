@@ -1,6 +1,6 @@
 import json
 
-with open("item-db.json","r") as file:
+with open("datos/item-db.json","r") as file:
     item_db = json.load(file)
 
 first_time = True
@@ -38,7 +38,7 @@ new_item = {
 
 item_db[item_id] = new_item
 
-with open("item-db.json","w") as file:
+with open("datos/item-db.json","w") as file:
     json.dump(item_db, file)
 
 print("\nItem saved successfully\n")

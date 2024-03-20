@@ -1,5 +1,4 @@
 import requests
-import json
 import pandas as pd
 import numpy as np
 
@@ -10,13 +9,13 @@ def cargar_archivos_csv():
     # Cargar archivos csv
     try:
         precios_venta_items = pd.read_csv(
-            "precios-api-items.csv",
+            "datos/precios-api-items.csv",
             header=0,
             index_col="item_id"
         )["sell_price_min"]
 
         precios_compra_materiales = pd.read_csv(
-            "precios-api-materiales.csv",
+            "datos/precios-api-materiales.csv",
             header=0,
             index_col="item_id"
         )["sell_price_min"]
@@ -99,8 +98,8 @@ def obtener_datos_api(
     precios_venta_items = procesar_datos_items(datos_api_items)
     precios_compra_materiales = procesar_datos_materiales(datos_api_materiales)
 
-    precios_venta_items.to_csv("precios-api-items.csv")
-    precios_compra_materiales.to_csv("precios-api-materiales.csv")
+    precios_venta_items.to_csv("datos/precios-api-items.csv")
+    precios_compra_materiales.to_csv("datos/precios-api-materiales.csv")
 
     return precios_venta_items, precios_compra_materiales
 

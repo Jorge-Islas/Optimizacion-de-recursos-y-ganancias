@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from cargarDatos import cargar_item_db
+from src.cargarDatos import cargar_item_db
 
 def obtener_restriccion_dinero(
     lista_items_ordenados,
