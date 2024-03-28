@@ -4,6 +4,16 @@
 |---|---|
 |![Optimización de recursos](./img/optimize.png) | ![Mercado Albion Online](https://d7ya3krmkxqty.cloudfront.net/media/albiononlinemarket08.jpg) |
 
+**Tabla de contenidos**
+
+- [Descripción del problema](#descripción-del-problema)
+- [Análisis del problema](#análisis-del-problema)
+- [Propuesta de solución](#propuesta-de-solución)
+    - [Función a maximizar](#función-a-maximizar)
+    - [Restricciones del problema](#restricciones-del-problema)
+- [Prototipo de solución](#prototipo-de-la-solución)
+- [Atribución de imágenes](#atribución-de-imágenes)
+
 ## Descripción del problema
 
 Supongamos que dada una cantidad de dinero inicial se quieren comprar materiales para crear productos con ellos, posteriormente venderlos, y así idealmente recuperar la inversión total y obtener una ganancia adicional.
@@ -46,9 +56,80 @@ Los **puntos clave** de este problema son:
 
 ## Propuesta de solución
 
+Este problema puede plantearse como un **problema de programación lineal**, donde "lineal" se refiere a que solamente habrá expresiones de **suma y multiplicación por números / escalares**, nada de exponentes, potencias, logarítmos, fracciones, etc. 
 
+Este tipo de planteamiento consiste en **maximizar una función lineal** dadas varias **restricciones lineales** de tipo menor o igual (ej. $a+b+c\leq d$ ) o de tipo igualdad (ej. $a+b+c=d$ ). La forma de este tipo de problemas **con solo restricciones de menor o igual** es la siguiente:
 
-## Uso de prototipo de la solución
+$$
+\text{max}\quad c_1x_1+c_2x_2+\cdots + c_nx_n
+$$
+$
+\qquad\text{dadas las restricciones:}
+$
+$$
+\begin{align*}
+a_{11}x_1+a_{12}x_2&+\cdots+a_{1n}x_n\leq b_1\\
+a_{21}x_1+a_{22}x_2&+\cdots+a_{2n}x_n\leq b_2\\
+&\vdots\\
+a_{m1}x_1+a_{m2}x_2&+\cdots+a_{mn}x_n\leq b_m\\
+\end{align*}
+$$
+$$
+\text{con }\: x_1,x_2,\dots, x_n\geq 0
+$$
+
+### Función a maximizar
+En este caso la **función a maximizar** está dada por:
+
+- La suma de los **precios de venta de cada tipo de objeto** creados **multiplicados** por las **cantidades de objetos creados** de cada tipo de objeto, todo multiplicado por $1-\text{impuestos}$, es decir, $1 - (0.08 + 0.025)$
+
+- **Menos** la suma de las **cuotas de creación de cada tipo de objeto** creados **multiplicados** por las **cantidades de objetos creados** de cada tipo de objeto
+
+- **Menos** la suma de los **precios de compra de cada tipo de material** refinado **multiplicados** por las **cantidades de materiales compradas** de cada tipo de material refinado
+
+### Restricciones del problema
+
+En este caso hay dos tipos de restricciones, la restricción de dinero y las restricciones de materiales.
+
+#### Restricción de dinero
+
+La restricción de dinero está dada por:
+
+- La suma de las **cuotas de creación de cada tipo de objeto** creados **multiplicados** por las **cantidades de objetos creados** de cada tipo de objeto
+
+- **Más** la suma de los **precios de compra de cada tipo de material** refinado **multiplicados** por las **cantidades de materiales compradas** de cada tipo de material refinado
+
+- Debe ser **menor o igual** al **presupuesto inicial** destinado a la operación
+
+Ejemplo:
+
+$$
+\$175\cdot \text{bastones}_2 + \$350\cdot \text{arcos}_2 + \$14\cdot \text{tablas}_2 + \$13\cdot\text{lingotes}_2 \leq \$10000
+$$
+
+#### Restricciones de materiales
+
+Las restricciones de materiales están dadas por:
+
+- Las sumas de las cantidades necesarias de cada tipo de material para crear cada tipo de objeto
+
+- Deben ser menores o iguales que las cantidades compradas de cada tipo de material
+
+Ejemplo:
+
+$$
+16\cdot \text{bastones}_2 + 32\cdot\text{arcos}_2\leq \text{tablas}_2
+$$
+$$
+8\cdot \text{bastones}_2 + 0\cdot\text{arcos}_2\leq \text{lingotes}_2
+$$
+
+#### Restricciones de variables
+
+En este caso las variables representan cantidades enteras y mayores o iguales a cero, es decir, todas las variables son números naturales, pues no se pueden crear 1.5 espadas o -1 armaduras.
+
+## Prototipo de la solución
+
 
 
 ## Atribución de imágenes
