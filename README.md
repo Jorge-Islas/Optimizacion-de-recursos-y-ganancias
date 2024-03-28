@@ -128,6 +128,7 @@ Ejemplo:
 $$
 16\cdot \text{bastones}_2 + 32\cdot\text{arcos}_2\leq \text{tablas}_2
 $$
+
 $$
 8\cdot \text{bastones}_2 + 0\cdot\text{arcos}_2\leq \text{lingotes}_2
 $$
