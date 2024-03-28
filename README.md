@@ -179,16 +179,16 @@ Después, usa el **siguiente comando** para **entrar a la carpeta** donde se enc
 cd Optimizacion-de-recursos-y-ganancias/
 ```
 
-Luego, crea un entorno de `conda` con el archivo `entorno.yml`, donde `NOMBRE` es el nombre que le pondrás al entorno que crees
+Luego, crea un entorno de `conda` con el archivo `entorno.yml`
 
 ```
-conda create -n NOMBRE -f entorno.yml
+conda env create -f entorno.yml
 ```
 
 Activa el entorno de `conda` que acabas de crear
 
 ```
-conda activate NOMBRE
+conda activate optimizacion
 ```
 
 Ejecuta el programa con el siguiente comando y sigue las instrucciones del programa
