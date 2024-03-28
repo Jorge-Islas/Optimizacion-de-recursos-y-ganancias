@@ -63,14 +63,25 @@ Este tipo de planteamiento consiste en **maximizar una función lineal** dadas v
 $$
 \text{max}\quad c_1x_1+c_2x_2+\cdots + c_nx_n
 $$
+
 $$
 \qquad\text{dadas las restricciones:}
 $$
+
 $$
-a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n\leq b_1$$
-$$a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n\leq b_2$$
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n\leq b_1
+$$
+
+$$
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n\leq b_2
+$$
+
 $$\vdots$$
-$$a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n\leq b_m$$
+
+$$
+a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n\leq b_m
+$$
+
 $$
 \text{con }\: x_1,x_2,\dots, x_n\geq 0
 $$
