@@ -1,0 +1,7 @@
+name: optimizacion
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - requests
+  - scipy
