@@ -139,7 +139,63 @@ En este caso las variables representan cantidades enteras y mayores o iguales a 
 
 ## Prototipo de la solución
 
+Para obtener los precios del mercado se utilizó la **API** del proyecto [Albion Online Data roject](https://www.albion-online-data.com/), con la cual se pueden **obtener algunos datos** del mercado de Albion Online, como algunos precios de compra y de venta. Los precios que **no estén disponibles** mediante dicha API se le **piden al usuario**. Así mismo, los datos de las **cuotas de las estaciones de trabajo** se le piden al usuario, puesto que este debe **revisar manualmente** qué estación de trabajo es la más económica **dentro del juego**.
 
+El prototipo funciona como una **CLI** (interfaz de consola de comandos o programa en la terminal), en la cual se le piden al usuario los datos que haya que rellenar o elegir, por ejemplo:
+
+- **Qué categorías** de objetos **considerar** (no agregar categorías selecciona todas)
+
+- **Qué categorías** de objetos **no considerar** (no agregar categorías impica no quitar nada)
+
+- Las **cuotas de uso de cada tipo de estación de trabajo** de donde se vaya a realizar la operación
+
+- El **presupuesto inicial** para la operación
+
+- El **mercado de qué ciudad** del juego considerar (cada mercado de cada ciudad dentro del juego es independiente)
+
+- Si **usar los datos guardados** o **actualizar los datos con la API** y rellenando los datos que falten
+
+Al final se puede esperar una salida similar a la imagen siguiente:
+
+![alt text](./img/salida-del-programa.png)
+
+Donde se detallan los tipos de objeto que se deben crear y los materiales que se deben comprar, junto con las cantidades correspondientes. También se muestran los precios mínimos de venta y máximos de compra para los objetos y los materiales, respectivamente. Al final, se muestra un desglose del costo total de la operación y de las ganancias totales.
+
+### Usar el prototipo
+
+Para poder usar el prototipo y seguir las instrucciones siguientes deberás tener `conda` instalado en tu dispositivo. Si no conoces `conda` aquí te dejo un recurso donde podrás ver lo básico de esta herramienta: [Conda tutorial básico](https://github.com/Jorge-Islas/Conda-tutorial-basico).
+
+Primero debes **clonar este repositorio**. Puedes usar el **siguiente comando** o descargar un archivo `.zip` desde esta página dando clic en el botón verde que dice "**<> Code**" y elegir "**Download ZIP**" o "**Descargar ZIP**":
+
+![Boton verde code](./img/boton-verde-code.png)
+
+```
+git clone https://github.com/Jorge-Islas/Optimizacion-de-recursos-y-ganancias.git
+```
+
+Después, usa el **siguiente comando** para **entrar a la carpeta** donde se encuentra el repositorio. Si descargaste el ZIP, **abre una terminal** y **entra en la carpeta** donde **descomprimiste** el ZIP y que se vean **todos los archivos del repositorio**
+
+```
+cd Optimizacion-de-recursos-y-ganancias/
+```
+
+Luego, crea un entorno de `conda` con el archivo `entorno.yml`, donde `NOMBRE` es el nombre que le pondrás al entorno que crees
+
+```
+conda create -n NOMBRE -f entorno.yml
+```
+
+Activa el entorno de `conda` que acabas de crear
+
+```
+conda activate NOMBRE
+```
+
+Ejecuta el programa con el siguiente comando y sigue las instrucciones del programa
+
+```
+python main.py
+```
 
 ## Atribución de imágenes
 
